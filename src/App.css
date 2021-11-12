@@ -10,7 +10,10 @@ body {
   cursor: none;
 }
 
-p, a, h1, h2 {
+p,
+a,
+h1,
+h2 {
   z-index: 1000;
   position: relative;
 }

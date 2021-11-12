@@ -1,6 +1,5 @@
 @import url(//db.onlinewebfonts.com/c/9ed0693efb2806ad7fad5812235a9209?family=Biome);
 
-
 .about-columns {
   display: flex;
   flex-direction: row;
@@ -24,21 +23,21 @@
   margin-bottom: 4rem;
 }
 
-#grayscale
-  .copo {
-    fill: #292929;;
-  }
+#grayscale .copo {
+  fill: #292929;
+}
 
-#coffee
-  .copo {
-    fill: #56391F;
-  }
+#coffee .copo {
+  fill: #56391f;
+}
 
-#grayscale-mask, #coffee-mask {
+#grayscale-mask,
+#coffee-mask {
   fill: white;
 }
 
-#grayscale-mask path, #coffee-mask path {
+#grayscale-mask path,
+#coffee-mask path {
   opacity: 0.9;
   animation: waves 2s infinite linear;
 }
@@ -47,21 +46,22 @@
     transform: translateX(17rem);
   }
   to {
-    transform: translateX(-17rem);    
+    transform: translateX(-17rem);
   }
 }
 
-#grayscale-mask g, #coffee-mask g {
+#grayscale-mask g,
+#coffee-mask g {
   animation: raise 10s infinite ease-in-out;
   animation-direction: alternate;
 }
 
 @keyframes raise {
   from {
-    transform: translateY(-9rem); 
+    transform: translateY(-9rem);
   }
-  to{
-    transform: translateY(2rem);  
+  to {
+    transform: translateY(2rem);
   }
 }
 
