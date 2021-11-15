@@ -2,7 +2,7 @@
   margin-right: 3rem;
 }
 
-.topRow{
+.topRow {
   display: flex;
   flex-direction: row;
 }
@@ -19,7 +19,6 @@
   margin-left: 6rem;
   margin-top: 12rem;
   margin-right: 6rem;
-  
 }
 
 .qualificacoes {
@@ -29,11 +28,10 @@
   justify-content: center;
 }
 
-.box{
+.box {
   display: flex;
   flex-direction: column;
   align-items: center;
-
 }
 .tab {
   flex: 0.7;
@@ -43,15 +41,13 @@
 
 #cv {
   position: absolute;
-  top: 25%; 
+  top: 25%;
   left: 10%;
   white-space: pre;
-
 }
 .botao {
   flex: 0.3;
   justify-content: center;
   width: 100%;
   margin-left: 50%;
-  
 }

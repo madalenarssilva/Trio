@@ -86,3 +86,14 @@ h2 {
     background-color: #e7346b;
   }
 }
+
+.button {
+  color: white;
+  background-color: #006eff;
+  width: 30%;
+  min-height: 30px;
+  border-radius: 10px;
+  font-size: 18px;
+  padding: 0.25rem 0;
+  border: none;
+}
