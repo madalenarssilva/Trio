@@ -5,7 +5,13 @@ import "./CardProject.css";
 
 const Card = ({ backgroundImage, frontImage, textImage }) => {
   return (
-    <Atropos className="my-atropos" shadow={true} rotateXMax={5} rotateYMax={5}>
+    <Atropos
+      className="my-atropos"
+      shadow={false}
+      highlight={false}
+      rotateXMax={5}
+      rotateYMax={5}
+    >
       {/* Element with negative offset will move in reverse direction, making it appear behind the scene */}
       <img
         className="back"

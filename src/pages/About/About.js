@@ -146,7 +146,7 @@ const About = () => {
           </div>
         </div>
       </div>
-      <Footer />
+      {loadFooter && <Footer />}
     </div>
   );
 };

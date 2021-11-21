@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Footer from "../../components/Footer/Footer";
 import "./Contact.css";
 import { motion, useAnimation } from "framer-motion";
