@@ -1,0 +1,37 @@
+.my-atropos {
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  position: relative;
+}
+
+.my-atropos > * > * > * {
+  border-radius: 20px;
+}
+
+.back {
+  max-width: 100%;
+  border-radius: 20px;
+}
+
+.front {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  left: 0;
+  border-radius: 20px;
+  height: 100%;
+}
+
+.text-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.text-card {
+  margin: 0;
+  text-align: center;
+  font-size: 60px;
+}

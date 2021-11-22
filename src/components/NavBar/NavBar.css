@@ -1,0 +1,26 @@
+.header {
+  display: flex; /* Flexibilizar o display do header */
+  flex-direction: row; /* Inserir logo e nav numa linha */
+  justify-content: space-between; /* Inserir espaço entre logo e nav */
+  align-items: center; /* Centrar verticalmente os itens do header */
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.header > nav {
+  margin-right: 2rem;
+}
+
+.trio-logo {
+  margin-left: 2rem;
+  transform: rotate(180deg);
+  max-width: 90%;
+  margin-top: 0.5rem;
+}
+
+.header-nav > a {
+  font-size: 24px;
+  color: white;
+  text-decoration: none; /* Retirar o underline */
+  margin-left: 2.5rem;
+}

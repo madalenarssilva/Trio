@@ -1,0 +1,102 @@
+@import url(//db.onlinewebfonts.com/c/9ed0693efb2806ad7fad5812235a9209?family=Biome);
+
+
+.about-columns {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 5%;
+}
+
+.coffee {
+  flex: 0.3; /* Dividir o ecra em dois com 80% | 20% */
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  font-size: 22px;
+  font-family: Masqualero;
+  font-weight: bold;
+  margin-right: 10rem;
+  margin-top: 5rem;
+  position: sticky;
+  position: -webkit-sticky;
+  align-self: flex-start;
+  top: 6em; /* must have for sticky to work */
+  margin-bottom: 4rem;
+}
+
+#grayscale
+  .copo {
+    fill: #292929;;
+  }
+
+#coffee
+  .copo {
+    fill: #56391F;
+  }
+
+#grayscale-mask, #coffee-mask {
+  fill: white;
+}
+
+#grayscale-mask path, #coffee-mask path {
+  opacity: 0.9;
+  animation: waves 2s infinite linear;
+}
+@keyframes waves {
+  from {
+    transform: translateX(17rem);
+  }
+  to {
+    transform: translateX(-17rem);    
+  }
+}
+
+#grayscale-mask g, #coffee-mask g {
+  animation: raise 10s infinite ease-in-out;
+  animation-direction: alternate;
+}
+
+@keyframes raise {
+  from {
+    transform: translateY(-9rem); 
+  }
+  to{
+    transform: translateY(2rem);  
+  }
+}
+
+.frases {
+  margin-left: 2rem;
+  margin-top: 5.5rem;
+  text-align: center;
+}
+
+.photos {
+  flex: 0.7;
+  margin-left: 2rem;
+  min-height: 40vh;
+  position: relative;
+}
+
+.photos > img {
+  display: block;
+}
+
+.bia {
+  margin-left: 8rem;
+  margin-top: -3rem;
+  max-width: 60%;
+  transition: all 800ms;
+}
+
+.mada {
+  max-width: 55%;
+  margin-top: 1.1rem;
+  transition: all 800ms;
+}
+
+.ines {
+  margin-top: -7rem;
+  max-width: 60%;
+  transition: all 800ms;
+}
