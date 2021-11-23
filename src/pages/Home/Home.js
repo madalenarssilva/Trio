@@ -5,6 +5,7 @@ import "../../components/Footer/Footer.css";
 import "react-image-shadow/assets/index.css";
 import "./Home.css";
 import { motion, transform } from "framer-motion";
+import BlobCursor from "../../components/Cursor/Cursor";
 
 const MAX_OFFSET = 20;
 
@@ -67,7 +68,12 @@ export const Home = () => {
             }}
             className="light-mode"
           >
-            <img className="light-icon" src="/light.png" alt="logo-luz" />
+            <img
+              className="light-icon"
+              src="/light.png"
+              alt="logo-luz"
+              style={{ zIndex: "1000" }}
+            />
             <p
               onMouseOver={(e) => e.target.classList.add("color-animation")}
               onMouseLeave={(e) => e.target.classList.remove("color-animation")}
@@ -143,7 +149,6 @@ export const Home = () => {
         src="/PC.svg"
         onClick={() => navigate("/projects")}
         style={{
-          perspective: "100em",
           transition: "ease-in",
           transform: `translateX(${values.x}px) translateY(${values.y}px)`,
         }}
@@ -181,18 +186,29 @@ export const Home = () => {
 
       <img
         className="azul"
-        style={{ opacity: estadoVisibilidade }}
-        onMouseOver={() => setEstadoVisibilidade(1)}
-        onMouseLeave={() => setEstadoVisibilidade(0)}
+        style={{ opacity: 0 }}
+        onMouseOver={() =>
+          document.getElementById("cursor-blob").classList.add("dot-scale")
+        }
+        onMouseLeave={() =>
+          document.getElementById("cursor-blob").classList.remove("dot-scale")
+        }
         src="/Mancha azul.svg"
       />
-      <img
+      <p className="quote-coffee" style={{ zIndex: "1000" }}>
+        and a looot of coffee
+      </p>
+      {/*<img
         className="quote-coffee"
-        style={{ opacity: estadoVisibilidade }}
-        onMouseOver={() => setEstadoVisibilidade(1)}
-        onMouseLeave={() => setEstadoVisibilidade(0)}
+        style={{ opacity: estadoVisibilidade, zIndex: "1000" }}
+        onMouseOver={() => {
+          setEstadoVisibilidade(1);
+        }}
+        onMouseLeave={() => {
+          setEstadoVisibilidade(0);
+        }}
         src="/coffeeQuote.svg"
-      />
+      />*/}
     </div>
   );
 };

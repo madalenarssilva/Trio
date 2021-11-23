@@ -9,6 +9,7 @@
 
 .header > nav {
   margin-right: 2rem;
+  z-index: 1000;
 }
 
 .trio-logo {
@@ -16,6 +17,8 @@
   transform: rotate(180deg);
   max-width: 90%;
   margin-top: 0.5rem;
+  z-index: 1000;
+  position: relative;
 }
 
 .header-nav > a {

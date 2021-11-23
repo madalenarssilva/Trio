@@ -10,6 +10,7 @@ function useMousePosition() {
       const { clientX, clientY } = event;
       setMousePosition({ x: clientX, y: clientY });
     };
+
     document.addEventListener("mousemove", mouseMoveHandler);
 
     return () => {
@@ -26,12 +27,17 @@ const BlobCursor = () => {
   return (
     <>
       {/* Anel */}
-      <div style={{ left: `${x}px`, top: `${y}px` }} className="ring"></div>
+      <div
+        style={{ left: `${x}px`, top: `${y}px` }}
+        className="ring"
+        id="cursor-ring"
+      ></div>
 
       {/* Blob */}
       <div
+        id="cursor-blob"
         className="dot"
-        style={{ left: `${x - 90}px`, top: `${y - 150}px` }}
+        style={{ left: `${x - 120}px`, top: `${y - 170}px` }}
       ></div>
     </>
   );

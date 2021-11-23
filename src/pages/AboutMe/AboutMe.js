@@ -2,10 +2,12 @@ import React, { useRef, useState, useEffect } from "react";
 import Footer from "../../components/Footer/Footer";
 import CarouselTech from "../../components/Carousel";
 import "./AboutMe.css";
+import { motion } from "framer-motion";
+import Highlight from "react-highlight";
 
 export const AboutMe = ({ nome }) => {
-  const initialMsg = `    <button onClick = "myFunction()" > Click Me! </button>
-    <script\>
+  const initialMsg = `<button onClick = "myFunction()" > Click Me! </button>
+    <script>
         function myFunction() {
             let x = document.getElementById( "qualifications" );
             x.style.fontSize = "18px";
@@ -36,11 +38,34 @@ export const AboutMe = ({ nome }) => {
     <div className="parent" onLoad={handlePageView}>
       <div className="aboutMe-page">
         <div className="topRow">
-          <div className="photo">
+          <motion.div
+            className="photo"
+            initial={{
+              translateX: "-50vw",
+            }}
+            animate={{
+              translateX: 0,
+            }}
+            transition={{
+              type: "spring",
+              duration: 1.5,
+            }}
+          >
             <img src={photo} />
-          </div>
+          </motion.div>
           <div className="about">
-            <p>
+            <motion.p
+              initial={{
+                translateX: "50vw",
+              }}
+              animate={{
+                translateX: 0,
+              }}
+              transition={{
+                type: "spring",
+                duration: 1.5,
+              }}
+            >
               Short presentations and likings accumsan suscipit fringilla.
               Vestibulum laoreet metus eget pulvinar sodales. Phasellus
               sollicitudin magna quis lobortis nec feugiat justo aliquam vitae.
@@ -48,14 +73,20 @@ export const AboutMe = ({ nome }) => {
               et. Nullam nec ante sollicitudin, pulvinar urna consectetur,
               mattis nibh. sapien, eget molestie libero sollicitudin et. Nullam
               nec ante sollicitudin, pulvinar urna consectetur, mattis nibh.
-            </p>
+            </motion.p>
           </div>
         </div>
         <div className="qualificacoes">
           <div className="box">
             <div className="tab">
-              <img id="img" src="/tab.svg" />
-              <text id="cv">{clickBtn ? initialMsg : afterMsg}</text>
+              <img className="img" src="/tab.svg" />
+              {clickBtn ? (
+                <span id="cv">
+                  <Highlight language="html">{initialMsg}</Highlight>
+                </span>
+              ) : (
+                <p id="cv">{afterMsg}</p>
+              )}
             </div>
             <div className="botao">
               <input
@@ -74,7 +105,9 @@ export const AboutMe = ({ nome }) => {
               />
             </div>
           </div>
-          <div className="carousel"></div>
+        </div>
+        <div className="carrossel-about-me">
+          <CarouselTech />
         </div>
       </div>
       <Footer />

@@ -2,13 +2,41 @@ import React, { useCallback, useState } from "react";
 import Card from "../../components/Cards/CardProject";
 import Footer from "../../components/Footer/Footer";
 import Popover from "@mui/material/Popover";
-import Link from "@mui/material/Link";
 import "./Projects.css";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router";
 
 const Project = () => {
+  const projects = [
+    {
+      id: "1",
+      urlname: "illustrationBook",
+      name: "Illustration Book",
+      date: "October 2021",
+      src: "/Madalena.png",
+      tools: ["/illustrator.png", "/indesign.png"],
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nuncaliquam faucibus libero, et congue urna vulputate vel. Suspendisse non turpis magna. Praesent at erat a eros iaculis semper ut id lorem. Ut eu eleifend lorem. Praesent id neque ac nunc pellentesque pellentesque. Ut dictum nulla blandit mauris tincidunt pharetra. Proin quis lorem dui. Donec tincidunt sed mi ut finibus. Nam vitae pharetra nunc. Curabitur risus metus, maximus non scelerisque vitae, cursus vel purus. Vestibulum accumsan suscipit fringilla. Vestibulum laoreet metus eget pulvinar sodales. Phasellus sollicitudin magna quis lobortis rutrum. Fusce porta dignissim metus, nec feugiat justo aliquam vitae. Nullam dapibus laoreet sapien, eget molestie libero sollicitudin et. Nullam nec ante sollicitudin, pulvinar urna consectetur, mattis nibh.",
+      items: ["/ilustracao1.png", "/ilustracao2.png"],
+    },
+    {
+      id: "2",
+      urlname: "popBubble",
+      name: "Pop the Bubble",
+      date: "January 2021",
+      src: "/Ines.png",
+      tools: ["/illustrator.png", "/indesign.png"],
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nuncaliquam faucibus libero, et congue urna vulputate vel. Suspendisse non turpis magna. Praesent at erat a eros iaculis semper ut id lorem. Ut eu eleifend lorem. Praesent id neque ac nunc pellentesque pellentesque. Ut dictum nulla blandit mauris tincidunt pharetra. Proin quis lorem dui. Donec tincidunt sed mi ut finibus. Nam vitae pharetra nunc. Curabitur risus metus, maximus non scelerisque vitae, cursus vel purus. Vestibulum accumsan suscipit fringilla. Vestibulum laoreet metus eget pulvinar sodales. Phasellus sollicitudin magna quis lobortis rutrum. Fusce porta dignissim metus, nec feugiat justo aliquam vitae. Nullam dapibus laoreet sapien, eget molestie libero sollicitudin et. Nullam nec ante sollicitudin, pulvinar urna consectetur, mattis nibh.",
+      items: ["/Bility.png", "/Didi.png", "/Lief.png"],
+    },
+  ];
+
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const [visible, setVisible] = useState(0);
+
+  const navigate = useNavigate();
 
   const handleVisibility = () => {
     visible ? setVisible(0) : setVisible(1);
@@ -27,13 +55,37 @@ const Project = () => {
 
   const updateFilter = useCallback((filterOption) => {}, []);
 
+  const ProjectHandler = (name) => {
+    navigate("/projects/" + name);
+  };
+
   return (
     <>
       <div className="grid">
         <div />
         <div />
         <div>
-          <div className="icons">
+          <motion.div
+            className="icons"
+            /*onMouseOver={(e) => {
+              document.getElementById("cursor-ring").style.opacity = 0;
+              e.target.classList.add("icons-hover");
+            }}
+            onMouseLeave={(e) => {
+              document.getElementById("cursor-ring").style.opacity = 1;
+              e.target.classList.remove("icons-hover");
+            }}*/
+            initial={{
+              translateX: "50vw",
+            }}
+            animate={{
+              translateX: 0,
+            }}
+            transition={{
+              type: "spring",
+              duration: 1.5,
+            }}
+          >
             <input
               className="search-input"
               style={{
@@ -45,9 +97,13 @@ const Project = () => {
               type="text"
               name="name"
             />
-            <img src="search.svg" onClick={handleVisibility} />
+            <img src="/search.svg" onClick={handleVisibility} />
             <>
-              <img className="filtro" src="filter.svg" onClick={openDropdown} />
+              <img
+                className="filtro"
+                src="/filter.svg"
+                onClick={openDropdown}
+              />
               <Popover
                 open={!!anchorEl}
                 anchorEl={anchorEl}
@@ -116,23 +172,43 @@ const Project = () => {
                 </div>
               </Popover>
             </>
-          </div>
+          </motion.div>
         </div>
       </div>
-      <div className="cartas">
+      <motion.div
+        className="cartas"
+        initial={{
+          translateY: "10vh",
+        }}
+        animate={{
+          translateY: 0,
+        }}
+        transition={{
+          type: "spring",
+          duration: 1.5,
+        }}
+      >
         {/* <Card/> */}
-        <Card
-          backgroundImage="/background_illustration.png"
-          frontImage="/front_illustration.png"
-          textImage="Illustration"
-        />
-
+        <div onClick={() => ProjectHandler("bookIllustration")}>
+          <Card
+            backgroundImage="/background_illustration.png"
+            frontImage="/front_illustration.png"
+            textImage="Illustration"
+          />
+        </div>
+        <div onClick={() => ProjectHandler("popBubble")}>
+          <Card
+            backgroundImage="/backgroundBubble.png"
+            frontImage="/frontBubble.png"
+            textImage="Pop the bubble"
+          />
+        </div>
         <div style={{ backgroundColor: "blue", borderRadius: "15px" }} />
         <div style={{ backgroundColor: "pink", borderRadius: "15px" }} />
         <div style={{ backgroundColor: "green", borderRadius: "15px" }} />
         <div style={{ backgroundColor: "white", borderRadius: "15px" }} />
         <div style={{ backgroundColor: "aliceblue", borderRadius: "15px" }} />
-      </div>
+      </motion.div>
       <Footer />
     </>
   );

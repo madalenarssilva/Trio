@@ -19,10 +19,13 @@
 
 .light-mode {
   margin-left: 2rem;
+  z-index: 1000;
+  position: relative;
 }
 
 .light-mode > .light-icon {
   margin-left: 0;
+  z-index: 1000;
 }
 
 .footer-home {
@@ -38,6 +41,7 @@
   margin-bottom: 1rem;
   position: absolute;
   right: 0;
+  z-index: 1000;
 }
 
 .footer-home > .social-media > img {
@@ -65,17 +69,20 @@
 }
 
 .azul {
-  bottom: 1%;
-  right: 15%;
-  max-width: 22%;
+  bottom: 4%;
+  right: 20%;
+  max-width: 25%;
   transition: all 600ms !important;
 }
 
 .quote-coffee {
   position: absolute;
-  bottom: 10%;
-  right: 16%;
-  max-width: 20%;
+  bottom: 3%;
+  right: 21%;
+  color: #1c1c1c;
+  z-index: 1000;
+  font-family: Masqualero;
+  font-size: 24px;
   /* transition: all 400ms; */
 }
 
@@ -86,6 +93,7 @@
   font-family: Masqualero;
   font-size: 55px;
   line-height: 10px;
+  z-index: 1000;
 }
 
 .copo {

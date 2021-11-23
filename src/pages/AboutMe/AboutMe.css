@@ -9,16 +9,17 @@
 
 .photo {
   flex: 0.4;
-  margin-left: 5rem;
+  margin-left: 2rem;
   max-height: 70%;
 }
 
 .about {
   flex: 0.6;
   text-align: center;
-  margin-left: 6rem;
+  margin-left: 2rem;
   margin-top: 12rem;
-  margin-right: 6rem;
+  margin-right: 2rem;
+  font-size: 24px;
 }
 
 .qualificacoes {
@@ -42,12 +43,30 @@
 #cv {
   position: absolute;
   top: 25%;
-  left: 10%;
+  left: 5%;
   white-space: pre;
+  font-size: 20px;
 }
 .botao {
   flex: 0.3;
   justify-content: center;
   width: 100%;
   margin-left: 50%;
+}
+
+.carrossel-about-me .alice-carousel__stage-item * {
+  max-height: 15vh !important;
+  margin: 0;
+}
+
+.carrossel-about-me {
+  margin-bottom: 4rem;
+}
+
+.hljs {
+  background-color: transparent;
+}
+
+.img {
+  width: 60vw;
 }

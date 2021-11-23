@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from "react";
+import {
+  motion,
+  useTransform,
+  useViewportScroll,
+  transform,
+} from "framer-motion";
+import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router";
 import Footer from "../../components/Footer/Footer";
 import "./About.css";
 
 const About = () => {
-  const [scrollPosition, setScrollPosition] = useState(0);
+  const [scrollPosition, setScrollPosition] = useState(60);
   const [loadFooter, setLoadFooter] = useState(false);
+  const { scrollYProgress } = useViewportScroll();
+  const scale = useTransform(scrollYProgress, [0.1, 0.8], [60, 100]);
 
-  const handleScroll = () => {
-    // Calculo da percentagem através de scroll
-    const p = document.body.parentNode;
-    const position =
-      100 -
-      ((document.body.scrollTop || p.scrollTop) /
-        (p.scrollHeight - p.clientHeight)) *
-        100;
-
-    setScrollPosition(Math.round(position));
-  };
+  const handleScroll = useCallback(() => {
+    setScrollPosition(Math.round(scale.current));
+  }, [scale]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -25,7 +25,7 @@ const About = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  });
+  }, [handleScroll]);
 
   const navigate = useNavigate();
 
@@ -39,21 +39,21 @@ const About = () => {
         <div className="photos">
           <img
             className="mada"
-            src="/Madalena.png"
+            src="./Madalena.png"
             onMouseOver={(e) => e.target.classList.add("foto_blur")}
             onMouseLeave={(e) => e.target.classList.remove("foto_blur")}
             onClick={() => PhotoHandler("madalena")}
           />
           <img
             className="bia"
-            src="/Bia.png"
+            src="./Bia.png"
             onMouseOver={(e) => e.target.classList.add("foto_blur")}
             onMouseLeave={(e) => e.target.classList.remove("foto_blur")}
             onClick={() => PhotoHandler("beatriz")}
           />
           <img
             className="ines"
-            src="/Ines.png"
+            src="./Ines.png"
             onMouseOver={(e) => e.target.classList.add("foto_blur")}
             onMouseLeave={(e) => e.target.classList.remove("foto_blur")}
             onClick={() => PhotoHandler("ines")}
@@ -72,12 +72,30 @@ const About = () => {
               xmlSpace="preserve"
             >
               <mask id="grayscale-mask">
-                <g id="m1">
+                <g
+                  id="m1"
+                  style={{
+                    transform: `translateY(-${transform(
+                      scrollPosition,
+                      [60, 100],
+                      [4, 10]
+                    )}rem)`,
+                  }}
+                >
                   <path d="m -509.9,160.405 0,67.59962 c 70.8,0 106.9,14.70038 141.7,29.00038 34.9,14.3 71,29 142.10001,29 71,0 107.2,-14.8 142.100004,-29 34.8,-14.2 70.9,-29 141.700016,-29 70.8,0 106.9,14.7 141.7,29 34.9,14.3 71,29 142.1,29 71.09999,0 107.19999,-14.8 142.09999,-29 34.8,-14.2 70.9,-29 141.7,-29 70.8,0 106.9,14.7 141.7,29 34.9,14.3 71,29 142.1,29 l 0,-632.20001 -1419.00002,0 z" />
                 </g>
               </mask>
               <mask id="coffee-mask">
-                <g id="m2">
+                <g
+                  id="m2"
+                  style={{
+                    transform: `translateY(-${transform(
+                      scrollPosition,
+                      [60, 100],
+                      [4, 10]
+                    )}rem)`,
+                  }}
+                >
                   <path d="m 909.1,353.4 0,-67.6 c -70.8,0 -106.9,-14.7 -141.7,-29 -34.9,-14.3 -71,-29 -142.1,-29 -71,0 -107.2,14.8 -142.1,29 -34.8,14.2 -70.9,29 -141.7,29 -70.8,0 -106.9,-14.7 -141.7,-29 -34.9,-14.3 -71,-29 -142.1,-29 -71.1,0 -107.2,14.8 -142.1,29 -34.8,14.2 -70.9,29 -141.7,29 -70.8,0 -106.9,-14.7 -141.7,-29 -34.9,-14.3 -71,-29 -142.1,-29 l 0,632.2 1419,0 z" />
                 </g>
               </mask>
@@ -140,11 +158,23 @@ const About = () => {
               </g>
             </svg>
           </div>
-          <div className="frases">
+          <motion.div
+            initial={{
+              translateX: "50vw",
+            }}
+            animate={{
+              translateX: 0,
+            }}
+            transition={{
+              type: "spring",
+              duration: 1.5,
+            }}
+            className="frases"
+          >
             <p> {scrollPosition}% </p>
             <p> Coffee </p>
             <p> Addicted </p>
-          </div>
+          </motion.div>
         </div>
       </div>
       {loadFooter && <Footer />}

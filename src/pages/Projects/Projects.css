@@ -25,6 +25,10 @@
   align-items: flex-end;
 }
 
+.icons-hover {
+  cursor: pointer;
+}
+
 .icons > img {
   max-width: 15%;
   max-height: 15%;

@@ -21,6 +21,7 @@
   align-self: flex-start;
   top: 6em; /* must have for sticky to work */
   margin-bottom: 4rem;
+  margin-left: 1rem;
 }
 
 #grayscale .copo {
@@ -50,7 +51,7 @@
   }
 }
 
-#grayscale-mask g,
+/* #grayscale-mask g,
 #coffee-mask g {
   animation: raise 10s infinite ease-in-out;
   animation-direction: alternate;
@@ -63,12 +64,19 @@
   to {
     transform: translateY(2rem);
   }
-}
+} */
 
 .frases {
   margin-left: 2rem;
-  margin-top: 5.5rem;
+  margin-top: 8rem;
   text-align: center;
+}
+
+.frases > p {
+  z-index: 1000;
+  margin: 0.5rem;
+  padding: 0;
+  align-content: center;
 }
 
 .photos {
@@ -76,6 +84,7 @@
   margin-left: 2rem;
   min-height: 40vh;
   position: relative;
+  margin-top: 2rem;
 }
 
 .photos > img {
@@ -85,18 +94,18 @@
 .bia {
   margin-left: 8rem;
   margin-top: -3rem;
-  max-width: 60%;
+  max-width: 80%;
   transition: all 800ms;
 }
 
 .mada {
-  max-width: 55%;
+  max-width: 70%;
   margin-top: 1.1rem;
   transition: all 800ms;
 }
 
 .ines {
   margin-top: -7rem;
-  max-width: 60%;
+  max-width: 80%;
   transition: all 800ms;
 }
