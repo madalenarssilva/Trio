@@ -28,7 +28,7 @@ const Card = ({ backgroundImage, frontImage, textImage }) => {
       />
       {/* Element with positive offset will move in same direction, making it appear in front of the scene */}
       <span className="text-container">
-        <p className="text-card" data-atropos-offset="5">
+        <p className="text-card" data-atropos-offset="7">
           {textImage}
         </p>
       </span>

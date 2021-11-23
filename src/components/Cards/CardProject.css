@@ -28,10 +28,14 @@
   bottom: 0;
   left: 0;
   width: 100%;
+  font-family: Masqualero;
+  text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
 }
 
 .text-card {
   margin: 0;
   text-align: center;
-  font-size: 60px;
+  font-size: 4vw;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }

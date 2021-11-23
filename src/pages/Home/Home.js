@@ -4,7 +4,7 @@ import { useNavigate } from "react-router"; /*Hook*/
 import "../../components/Footer/Footer.css";
 import "react-image-shadow/assets/index.css";
 import "./Home.css";
-import { transform } from "framer-motion";
+import { motion, transform } from "framer-motion";
 
 const MAX_OFFSET = 20;
 
@@ -54,7 +54,19 @@ export const Home = () => {
           }}
         ></div>
         <div style={{ position: "absolute" }}>
-          <div className="light-mode">
+          <motion.div
+            initial={{
+              translateX: "-50vw",
+            }}
+            animate={{
+              translateX: 0,
+            }}
+            transition={{
+              type: "spring",
+              duration: 1.5,
+            }}
+            className="light-mode"
+          >
             <img className="light-icon" src="/light.png" alt="logo-luz" />
             <p
               onMouseOver={(e) => e.target.classList.add("color-animation")}
@@ -62,12 +74,24 @@ export const Home = () => {
             >
               Light mode
             </p>
-          </div>
+          </motion.div>
         </div>
-        <div className="social-media">
+        <motion.div
+          initial={{
+            translateX: "50vw",
+          }}
+          animate={{
+            translateX: 0,
+          }}
+          transition={{
+            type: "spring",
+            duration: 1.5,
+          }}
+          className="social-media"
+        >
           <img src="/facebook-icon.svg" width="18px" />
           <img src="/instagram-icon.svg" width="90px" />
-        </div>
+        </motion.div>
       </div>
 
       {/* Estáticas */}
@@ -90,10 +114,22 @@ export const Home = () => {
         }}
       />
 
-      <div className="text">
+      <motion.div
+        initial={{
+          translateX: "-50vw",
+        }}
+        animate={{
+          translateX: 0,
+        }}
+        transition={{
+          type: "spring",
+          duration: 1,
+        }}
+        className="text"
+      >
         <p>We are three girls</p>
         <p>who love coding, design</p>
-      </div>
+      </motion.div>
 
       {/* Dinâmicas */}
       <img

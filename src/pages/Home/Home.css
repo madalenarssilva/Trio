@@ -68,7 +68,7 @@
   bottom: 1%;
   right: 15%;
   max-width: 22%;
-  transition: all 400ms;
+  transition: all 600ms !important;
 }
 
 .quote-coffee {

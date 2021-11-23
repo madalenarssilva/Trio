@@ -1,6 +1,6 @@
 .cartas {
-  margin-right: 3rem;
-  margin-left: 3rem;
+  margin-right: 2rem;
+  margin-left: 2rem;
   max-width: 100%;
   margin-bottom: 3rem;
   display: grid;
@@ -9,8 +9,60 @@
   column-gap: 2rem;
 }
 
+.grid {
+  display: grid;
+  margin: 0 2rem;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  column-gap: 2rem;
+}
+
+.icons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+  align-items: flex-end;
+}
+
+.icons > img {
+  max-width: 15%;
+  max-height: 15%;
+}
+
 .cartas > div {
   aspect-ratio: 1;
+}
+
+.search-input {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  border-bottom: 2px solid white;
+  border-radius: 1px;
+  color: white;
+  font-family: Rubik;
+  font-size: 1rem;
+  max-height: 30px;
+  margin-bottom: 0.7rem;
+  flex: 1;
+  height: 30px;
+}
+
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0.25rem 0.5rem;
+  color: white;
+}
+
+.dropdown-item {
+  margin: 0.2rem 0;
+  width: 100%;
+  text-align: center;
+  border-radius: 5px;
 }
 
 @media only screen and (max-width: 720px) {
