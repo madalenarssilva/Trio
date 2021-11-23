@@ -26,10 +26,7 @@ const BlobCursor = () => {
   return (
     <>
       {/* Anel */}
-      <div
-        style={{ left: `${x}px`, top: `${y}px` }}
-        className="ring"
-      ></div>
+      <div style={{ left: `${x}px`, top: `${y}px` }} className="ring"></div>
 
       {/* Blob */}
       <div

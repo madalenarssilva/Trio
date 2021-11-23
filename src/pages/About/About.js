@@ -5,6 +5,7 @@ import "./About.css";
 
 const About = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [loadFooter, setLoadFooter] = useState(false);
 
   const handleScroll = () => {
     // Calculo da percentagem através de scroll
@@ -34,7 +35,7 @@ const About = () => {
 
   return (
     <div className="parent">
-      <div className="about-columns">
+      <div className="about-columns" onLoad={() => setLoadFooter(true)}>
         <div className="photos">
           <img
             className="mada"
