@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState } from "react";
 import Footer from "../../components/Footer/Footer";
 import CarouselTech from "../../components/Carousel";
 import "./AboutMe.css";
