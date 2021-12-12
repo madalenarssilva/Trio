@@ -1,14 +1,36 @@
 import React from "react";
-import { useParams } from "react-router";
+import { useParams, useLocation, useNavigate } from "react-router";
 import Footer from "../../components/Footer/Footer";
 import CarouselTech from "../../components/ProjectCarousel";
 import "./Project.css";
 import { motion } from "framer-motion";
+import useFetch from "../../../src/useFetch.js";
 
 
 export const ProjectInfo = ({toggleTheme,value, font}) => {
   const { id } = useParams();
-  console.log({ id });
+  //console.log({ id });
+  
+  const location = useLocation();
+  const project = location.state.projectInfo; // Read values passed on state
+
+  const author_url = 'http://trio.local/wp-json/wp/v2/project-author?include=' + project.acf.author.ID;
+  const author = useFetch(author_url);
+
+  const navigate = useNavigate();
+  const AuthorHandler = (nome, author) => {
+    console.log(author);
+    navigate("/about/" + nome, { state: { authorInfo: author} });
+  };
+
+  const tools = useFetch('http://trio.local/wp-json/wp/v2/tool');
+  function searchTool(idToSearch, tools) {
+    console.log(tools);
+    return tools.filter(item => {
+      return item.id === idToSearch
+    })
+  };
+
   return (
     <div className="projectPage">
       <div className="projectArea">
@@ -27,7 +49,7 @@ export const ProjectInfo = ({toggleTheme,value, font}) => {
             }}
             style={{color:font}}
           >
-            Project Name
+            {project.title.rendered}
           </motion.h1>
           <motion.h2
             className="date"
@@ -43,7 +65,7 @@ export const ProjectInfo = ({toggleTheme,value, font}) => {
             }}
             style={{color:font}}
           >
-            January 2022
+            {project.acf.date}
           </motion.h2>
           <motion.div
             initial={{
@@ -57,7 +79,14 @@ export const ProjectInfo = ({toggleTheme,value, font}) => {
               duration: 1.5,
             }}
           >
-            <img className="author" src="/Madalena.png" />
+          {author && author.map((authorInfo, index) => ( 
+            <img div key={index} 
+              className="author" src= {authorInfo.acf.photo.url} 
+              onMouseOver={(e) => e.target.classList.add("foto_blur")}
+              onMouseLeave={(e) => e.target.classList.remove("foto_blur")}
+              onClick={() => AuthorHandler(authorInfo.acf.user_name, authorInfo)}
+            />
+          ))}
           </motion.div>
         </div>
         <motion.div
@@ -73,8 +102,16 @@ export const ProjectInfo = ({toggleTheme,value, font}) => {
             duration: 1.5,
           }}
         >
-          <img className="tool" src="/illustrator.png" />
-          <img className="tool" src="/indesign.png" />
+          {project.acf.tools && project.acf.tools.map((tool, index) => {
+            if(tools != null) {
+              return(
+                <img div key={index} 
+                  className="tool" 
+                  src={searchTool(tool.ID, tools)[0].acf.icon.url} 
+                />
+              )
+            }
+          })}
         </motion.div>
 
         <motion.p
@@ -91,22 +128,10 @@ export const ProjectInfo = ({toggleTheme,value, font}) => {
           }}
           style={{color:font}}
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquam
-          faucibus libero, et congue urna vulputate vel. Suspendisse non turpis
-          magna. Praesent at erat a eros iaculis semper ut id lorem. Ut eu
-          eleifend lorem. Praesent id neque ac nunc pellentesque pellentesque.
-          Ut dictum nulla blandit mauris tincidunt pharetra. Proin quis lorem
-          dui. Donec tincidunt sed mi ut finibus. Nam vitae pharetra nunc.
-          Curabitur risus metus, maximus non scelerisque vitae, cursus vel
-          purus. Vestibulum accumsan suscipit fringilla. Vestibulum laoreet
-          metus eget pulvinar sodales. Phasellus sollicitudin magna quis
-          lobortis rutrum. Fusce porta dignissim metus, nec feugiat justo
-          aliquam vitae. Nullam dapibus laoreet sapien, eget molestie libero
-          sollicitudin et. Nullam nec ante sollicitudin, pulvinar urna
-          consectetur, mattis nibh.
+          {project.acf.description}
         </motion.p>
         <div className="carrossel">
-          <CarouselTech />
+          <CarouselTech items={project.acf.project_images}/>
         </div>
       </div>
       <Footer toggleTheme={toggleTheme} value={value}/>

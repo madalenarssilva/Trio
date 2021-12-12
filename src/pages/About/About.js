@@ -8,8 +8,12 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router";
 import Footer from "../../components/Footer/Footer";
 import "./About.css";
+import useFetch from "../../../src/useFetch.js";
 
 const About = ({toggleTheme,value, font, font2}) => {
+
+  const authors = useFetch('http://trio.local/wp-json/wp/v2/project-author');
+  
   const [scrollPosition, setScrollPosition] = useState(60);
   const [loadFooter, setLoadFooter] = useState(false);
   const { scrollYProgress } = useViewportScroll();
@@ -29,8 +33,9 @@ const About = ({toggleTheme,value, font, font2}) => {
 
   const navigate = useNavigate();
 
-  const PhotoHandler = (nome) => {
-    navigate("/about/" + nome);
+  const PhotoHandler = (nome, author) => {
+    console.log(author);
+    navigate("/about/" + nome, { state: { authorInfo: author} });
   };
 
   return (
@@ -42,21 +47,21 @@ const About = ({toggleTheme,value, font, font2}) => {
             src="./Madalena.png"
             onMouseOver={(e) => e.target.classList.add("foto_blur")}
             onMouseLeave={(e) => e.target.classList.remove("foto_blur")}
-            onClick={() => PhotoHandler("madalena")}
+            onClick={() => PhotoHandler("madalena", authors && authors[2])}
           />
           <img
             className="bia"
             src="./Bia.png"
             onMouseOver={(e) => e.target.classList.add("foto_blur")}
             onMouseLeave={(e) => e.target.classList.remove("foto_blur")}
-            onClick={() => PhotoHandler("beatriz")}
+            onClick={() => PhotoHandler("beatriz", authors && authors[0])}
           />
           <img
             className="ines"
             src="./Ines.png"
             onMouseOver={(e) => e.target.classList.add("foto_blur")}
             onMouseLeave={(e) => e.target.classList.remove("foto_blur")}
-            onClick={() => PhotoHandler("ines")}
+            onClick={() => PhotoHandler("ines", authors && authors[1])}
 
           />
         </div>

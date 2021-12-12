@@ -9,17 +9,17 @@ const responsive = {
   1024: { items: 2 },
 };
 
-const items = [
-  <img src="/Bility.png" onDragStart={handleDragStart} role="presentation" />,
-  <img src="/Didi.png" onDragStart={handleDragStart} role="presentation" />,
-  <img src="/Lief.png" onDragStart={handleDragStart} role="presentation" />,
-];
+const Gallery = ({items}) => {
+  const images = [];
 
-const Gallery = () => {
+  {items && items.map((item, index) => (
+    images.push(<img src={item.full_image_url} onDragStart={handleDragStart} role="presentation" />)
+  ))}
+
   return (
     <AliceCarousel
       mouseTracking
-      items={items}
+      items={images}
       responsive={responsive}
       /*controlsStrategy="alternate"*/
       disableDotsControls={true}

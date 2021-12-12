@@ -1,16 +1,20 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Card from "../../components/Cards/CardProject";
 import Footer from "../../components/Footer/Footer";
 import Popover from "@mui/material/Popover";
 import "./Projects.css";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router";
+import useFetch from "../../../src/useFetch.js";
 
 const Project = ({toggleTheme,value,iconS, iconF, font}) => {
-  
+
+  const projects = useFetch('http://trio.local/wp-json/wp/v2/project');
+        
   const borderStyle = '2px solid ' + font;
   console.log(borderStyle);
-  const projects = [
+
+  /*const projects = [
     {
       id: "1",
       urlname: "illustrationBook",
@@ -33,7 +37,7 @@ const Project = ({toggleTheme,value,iconS, iconF, font}) => {
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nuncaliquam faucibus libero, et congue urna vulputate vel. Suspendisse non turpis magna. Praesent at erat a eros iaculis semper ut id lorem. Ut eu eleifend lorem. Praesent id neque ac nunc pellentesque pellentesque. Ut dictum nulla blandit mauris tincidunt pharetra. Proin quis lorem dui. Donec tincidunt sed mi ut finibus. Nam vitae pharetra nunc. Curabitur risus metus, maximus non scelerisque vitae, cursus vel purus. Vestibulum accumsan suscipit fringilla. Vestibulum laoreet metus eget pulvinar sodales. Phasellus sollicitudin magna quis lobortis rutrum. Fusce porta dignissim metus, nec feugiat justo aliquam vitae. Nullam dapibus laoreet sapien, eget molestie libero sollicitudin et. Nullam nec ante sollicitudin, pulvinar urna consectetur, mattis nibh.",
       items: ["/Bility.png", "/Didi.png", "/Lief.png"],
     },
-  ];
+  ];*/
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -58,8 +62,8 @@ const Project = ({toggleTheme,value,iconS, iconF, font}) => {
 
   const updateFilter = useCallback((filterOption) => {}, []);
 
-  const ProjectHandler = (name) => {
-    navigate("/projects/" + name);
+  const ProjectHandler = (project) => {
+    navigate("/projects/" + project.id, { state: { projectInfo: project} });
   };
 
   return (
@@ -193,13 +197,18 @@ const Project = ({toggleTheme,value,iconS, iconF, font}) => {
         }}
       >
         {/* <Card/> */}
-        <div onClick={() => ProjectHandler("bookIllustration")}>
-          <Card
-            backgroundImage="/background_illustration.png"
-            frontImage="/front_illustration.png"
-            textImage="Illustration"
-          />
-        </div>
+        
+        {projects && projects.map((project, index) => (
+          <div key={index} onClick={() => ProjectHandler(project)}>
+            <Card
+              backgroundImage={project.acf.preview_back.url}
+              frontImage={project.acf.preview_front.url}
+              textImage={project.title.rendered}
+            />   
+          </div>
+        ))}
+
+        {/*
         <div onClick={() => ProjectHandler("popBubble")}>
           <Card
             backgroundImage="/backgroundBubble.png"
@@ -212,6 +221,8 @@ const Project = ({toggleTheme,value,iconS, iconF, font}) => {
         <div style={{ backgroundColor: "green", borderRadius: "15px" }} />
         <div style={{ backgroundColor: "white", borderRadius: "15px" }} />
         <div style={{ backgroundColor: "aliceblue", borderRadius: "15px" }} />
+        */}
+
       </motion.div>
       <Footer toggleTheme={toggleTheme} value={value}/>
     </>
