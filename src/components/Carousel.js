@@ -32,6 +32,8 @@ const Gallery = ({items}) => {
 
   function searchTool(idToSearch, tools) {
     console.log(tools);
+
+    if(tools == null) { return null }
     return tools.filter(item => {
       return item.id === idToSearch
     })

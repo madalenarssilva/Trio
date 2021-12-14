@@ -6,11 +6,34 @@ import "./Projects.css";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router";
 import useFetch from "../../../src/useFetch.js";
+import anymatch from "anymatch";
 
 const Project = ({toggleTheme,value,iconS, iconF, font}) => {
 
-  const projects = useFetch('http://trio.local/wp-json/wp/v2/project');
-        
+  const allProjects = useFetch('http://trio.local/wp-json/wp/v2/project');
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    setProjects(allProjects)
+  }, [allProjects]);
+ 
+  //get projects to show, according to search words
+  function updateProjects(searchWords) {
+    if(searchWords === "") { return allProjects; }
+    var words = searchWords.toLowerCase().split(' ').filter(function(i){return i});
+
+    return allProjects.filter(item => {
+      var match = false;
+      var titleWords = item.title.rendered.toLowerCase().split(' ').filter(function(i){return i});
+
+      for(var i = 0; i < titleWords.length; i++) {
+        match = anymatch(words, titleWords[i]);
+        if(match) break;
+      }
+      return match;
+    })
+  };
+
   const borderStyle = '2px solid ' + font;
   console.log(borderStyle);
 
@@ -66,6 +89,41 @@ const Project = ({toggleTheme,value,iconS, iconF, font}) => {
     navigate("/projects/" + project.id, { state: { projectInfo: project} });
   };
 
+  // Set initial search words
+  const [search, setSearch] = useState({name: "Search project title here"});
+
+  //Update search words & projects shown
+  const onSearchChange = (e) => {
+    var updated = projects;
+    if(allProjects != null) { updated = updateProjects(e.target.value) }
+    setSearch(search => ({...search, [e.target.name]: e.target.value}))
+    setProjects(updated);
+  };
+
+  //Update filter option & projects shown
+  const onFilterChange = (e, option) => {
+    setFilterOption(option);
+    console.log(option);
+    var updated = projects;
+
+    if(updated != null) {   
+      if(option == "a-z") {
+        updated.sort((a, b) => a.title.rendered > b.title.rendered ? 1 : -1)
+      }
+      else if (option == "z-a") {
+        updated.sort((a, b) => a.title.rendered < b.title.rendered ? 1 : -1)
+      }
+      //MODIFY TO ITEM DATE (ORDER BY MONTH & YEAR)
+      else if (option == "recent") {
+        updated.sort((a, b) => a.id < b.id? 1 : -1)
+      }
+      else if (option == "older") {
+        updated.sort((a, b) => a.id > b.id? 1 : -1)
+      }
+    }
+    setProjects(updated);
+  };
+
   return (
     <>
       <div className="grid">
@@ -104,6 +162,8 @@ const Project = ({toggleTheme,value,iconS, iconF, font}) => {
               }}
               type="text"
               name="name"
+              value={search.name}
+              onChange={onSearchChange}
             />
             <img src={iconS} onClick={handleVisibility} />
             <>
@@ -135,7 +195,7 @@ const Project = ({toggleTheme,value,iconS, iconF, font}) => {
                 <div className="dropdown">
                   <span
                     className="dropdown-item"
-                    onMouseEnter={() => setFilterOption("a-z")}
+                    onMouseEnter={(event) => {onFilterChange(event, "a-z")}}
                     style={{
                       backgroundColor:
                         filterOption === "a-z" ? "rgba(0,0,0,0.2)" : "#7C7878",
@@ -145,7 +205,7 @@ const Project = ({toggleTheme,value,iconS, iconF, font}) => {
                   </span>
                   <span
                     className="dropdown-item"
-                    onMouseEnter={() => setFilterOption("z-a")}
+                    onMouseEnter={(event) => {onFilterChange(event, "z-a")}}
                     style={{
                       backgroundColor:
                         filterOption === "z-a" ? "rgba(0,0,0,0.2)" : "#7C7878",
@@ -155,7 +215,7 @@ const Project = ({toggleTheme,value,iconS, iconF, font}) => {
                   </span>
                   <span
                     className="dropdown-item"
-                    onMouseEnter={() => setFilterOption("recent")}
+                    onMouseEnter={(event) => {onFilterChange(event, "recent")}}
                     style={{
                       backgroundColor:
                         filterOption === "recent"
@@ -167,7 +227,7 @@ const Project = ({toggleTheme,value,iconS, iconF, font}) => {
                   </span>
                   <span
                     className="dropdown-item"
-                    onMouseEnter={() => setFilterOption("older")}
+                    onMouseEnter={(event) => {onFilterChange(event, "older")}}
                     style={{
                       backgroundColor:
                         filterOption === "older"
