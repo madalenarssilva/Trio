@@ -4,10 +4,9 @@ import "./Footer.css";
 import { useAnimation, motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
-const Footer = ({toggleTheme, value}) => {
+const Footer = ({ toggleTheme, value }) => {
   const controls = useAnimation();
   const [ref, inView] = useInView();
-  
 
   useEffect(() => {
     console.log(inView);
@@ -15,7 +14,7 @@ const Footer = ({toggleTheme, value}) => {
       controls.start("visible");
     }
   }, [controls, inView]);
-  
+
   return (
     <motion.div
       ref={ref}
@@ -39,7 +38,7 @@ const Footer = ({toggleTheme, value}) => {
         }}
         className="links"
       >
-        <nav className="footer-nav" >
+        <nav className="footer-nav">
           <Link
             to="/projects"
             onMouseOver={(e) => e.target.classList.add("color-animation")}
@@ -64,11 +63,10 @@ const Footer = ({toggleTheme, value}) => {
         </nav>
         <div className="light-mode">
           <img className="light-icon" src="/light.png" alt="logo-luz" />
-          <p 
+          <p
             onMouseOver={(e) => e.target.classList.add("color-animation")}
             onMouseLeave={(e) => e.target.classList.remove("color-animation")}
             onClick={toggleTheme}
-            
           >
             {value}
           </p>
@@ -85,8 +83,25 @@ const Footer = ({toggleTheme, value}) => {
         }}
         className="social-media"
       >
-        <img src="/facebook-icon.svg" width="18px" />
-        <img src="/instagram-icon.svg" width="90px" />
+        <img
+          style={{ cursor: "pointer" }}
+          src="/facebook-icon.svg"
+          width="18px"
+          onClick={() =>
+            window.open(
+              "https://www.facebook.com/Trio-106285525245053/",
+              "_blank"
+            )
+          }
+        />
+        <img
+          style={{ cursor: "pointer" }}
+          src="/instagram-icon.svg"
+          width="90px"
+          onClick={() =>
+            window.open("https://www.instagram.com/trio.studio.wd/", "_blank")
+          }
+        />
       </motion.div>
     </motion.div>
   );
