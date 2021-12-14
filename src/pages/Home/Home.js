@@ -9,7 +9,7 @@ import BlobCursor from "../../components/Cursor/Cursor";
 
 const MAX_OFFSET = 20;
 
-export const Home = ({toggleTheme,value}) => {
+export const Home = ({ toggleTheme, value }) => {
   const navigate = useNavigate();
   const [estadoVisibilidade, setEstadoVisibilidade] = useState(0);
 
@@ -67,7 +67,6 @@ export const Home = ({toggleTheme,value}) => {
               duration: 1.5,
             }}
             className="light-mode"
-           
           >
             <img
               className="light-icon"
@@ -97,8 +96,25 @@ export const Home = ({toggleTheme,value}) => {
           }}
           className="social-media"
         >
-          <img src="/facebook-icon.svg" width="18px" />
-          <img src="/instagram-icon.svg" width="90px" />
+          <img
+            style={{ cursor: "pointer" }}
+            src="/facebook-icon.svg"
+            width="18px"
+            onClick={() =>
+              window.open(
+                "https://www.facebook.com/Trio-106285525245053/",
+                "_blank"
+              )
+            }
+          />
+          <img
+            style={{ cursor: "pointer" }}
+            src="/instagram-icon.svg"
+            width="90px"
+            onClick={() =>
+              window.open("https://www.instagram.com/trio.studio.wd/", "_blank")
+            }
+          />
         </motion.div>
       </div>
 

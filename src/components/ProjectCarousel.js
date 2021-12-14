@@ -9,21 +9,34 @@ const responsive = {
   1024: { items: 2 },
 };
 
-const Gallery = ({items}) => {
+const Gallery = ({ items }) => {
   const images = [];
 
-  {items && items.map((item, index) => (
-    images.push(<img src={item.full_image_url} onDragStart={handleDragStart} role="presentation" />)
-  ))}
+  {
+    items &&
+      items.map((item, index) =>
+        images.push(
+          <img
+            src={item.full_image_url}
+            onDragStart={handleDragStart}
+            role="presentation"
+          />
+        )
+      );
+  }
 
   return (
     <AliceCarousel
       mouseTracking
       items={images}
       responsive={responsive}
+      disableButtonsControls={true}
       /*controlsStrategy="alternate"*/
       disableDotsControls={true}
       controlsStrategy="responsive"
+      infinite={true}
+      autoPlay={true}
+      autoPlayInterval={"2500"}
     />
   );
 };

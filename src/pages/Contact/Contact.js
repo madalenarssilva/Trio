@@ -1,11 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import Footer from "../../components/Footer/Footer";
 import "./Contact.css";
 import { motion, useAnimation } from "framer-motion";
-import { Form } from "react-bootstrap";
+import axios from "axios";
 
-const Contact = ({toggleTheme, value, font}) => {
+const Contact = ({ toggleTheme, value, font }) => {
   const animation = useAnimation();
+  const [name, setname] = useState();
+  const [mail, setmail] = useState();
+  const [message, setMessage] = useState();
+
+  const url = "http://trio.local/wp-json/wp/v2/contact/";
+
+  const handleClick = () => {
+    axios
+      .post(
+        url,
+        {
+          title: name,
+          status: "publish",
+          fields: {
+            email: mail,
+            name: name,
+            message: message,
+          },
+        },
+        {
+          headers: {
+            Authorization: `Basic YWRtaW46YWRtaW4=`,
+          },
+        }
+      )
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   /*const sequence = async () => {
     await animation.start({
@@ -97,17 +129,36 @@ const Contact = ({toggleTheme, value, font}) => {
           }}
         >
           <div className="form-div">
-            <label style={{color:'white'}}>
+            <label style={{ color: "white" }}>
               Name
-              <input type="text" name="name" style={{color:'white'}}/>
+              <input
+                type="text"
+                name="name"
+                value={name}
+                onChange={(e) => setname(e.target.value)}
+                style={{ color: "white" }}
+              />
             </label>
-            <label style={{color:'white'}}>
+            <label style={{ color: "white" }}>
               Email
-              <input type="text" name="email" style={{color:'white'}}/>
+              <input
+                type="text"
+                name="email"
+                value={mail}
+                onChange={(e) => setmail(e.target.value)}
+                style={{ color: "white" }}
+              />
             </label>
-            <label style={{color:'white'}}>
+            <label style={{ color: "white" }}>
               Message
-              <textarea type="text" rows="10" name="message" style={{color:'white'}}/>
+              <textarea
+                type="text"
+                rows="10"
+                name="message"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                style={{ color: "white" }}
+              />
             </label>
             <input
               className="button"
@@ -119,13 +170,14 @@ const Contact = ({toggleTheme, value, font}) => {
                 e.target.classList.remove("color-animation-button");
                 e.target.classList.remove("box-shadow");
               }}
+              onClick={handleClick}
               type="button"
               value="Send"
             />
           </div>
         </motion.form>
       </div>
-      <Footer toggleTheme={toggleTheme} value={value}/>
+      <Footer toggleTheme={toggleTheme} value={value} />
     </>
   );
 };
