@@ -31,6 +31,8 @@ export const ProjectInfo = ({toggleTheme,value, font}) => {
     })
   };
 
+  console.log(project.acf.link);
+
   return (
     <div className="projectPage">
       <div className="projectArea">
@@ -129,6 +131,16 @@ export const ProjectInfo = ({toggleTheme,value, font}) => {
           style={{color:font}}
         >
           {project.acf.description}
+
+          {project.acf.link != undefined &&
+            <a 
+              href={project.acf.link.url}
+              onMouseOver={(e) => e.target.classList.add("color-animation")}
+              onMouseLeave={(e) => e.target.classList.remove("color-animation")}
+            >
+              <p>{project.acf.link.title}</p>
+            </a>
+          }
         </motion.p>
         <div className="carrossel">
           <CarouselTech items={project.acf.project_images}/>

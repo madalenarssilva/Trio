@@ -78,3 +78,23 @@
   min-height: 30px;
   min-width: 350px;
 }
+
+.contact-body > .quote-coffee {
+  height: 20px;
+  position: absolute;
+  top: 25%;
+  left: 10%;
+  color: #292929;
+  z-index: 1000;
+  font-family: Masqualero;
+  font-size: 24px;
+  /* transition: all 400ms; */
+}
+
+.contact-body > .azul {
+  position: absolute;
+  top: 21%;
+  left: 3%;
+  max-width: 25%;
+  transition: all 600ms !important;
+}

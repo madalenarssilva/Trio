@@ -61,6 +61,20 @@ const Contact = ({ toggleTheme, value, font }) => {
   return (
     <>
       <div className="contact-body">
+      <p className="quote-coffee" style={{ zIndex: "1000" }}>
+        hope you liked our portfolio! :)
+      </p>
+      <img
+        className="azul"
+        style={{ opacity: 0 }}
+        onMouseOver={() =>
+          document.getElementById("cursor-blob").classList.add("dot-scale")
+        }
+        onMouseLeave={() =>
+          document.getElementById("cursor-blob").classList.remove("dot-scale")
+        }
+        src="/Mancha azul.svg"
+      />
         <motion.div
           initial={{
             translateX: "-50vw",
@@ -128,7 +142,7 @@ const Contact = ({ toggleTheme, value, font }) => {
             duration: 1,
           }}
         >
-          <div className="form-div">
+          <div className="form-div"> 
             <label style={{ color: "white" }}>
               Name
               <input
@@ -136,7 +150,7 @@ const Contact = ({ toggleTheme, value, font }) => {
                 name="name"
                 value={name}
                 onChange={(e) => setname(e.target.value)}
-                style={{ color: "white" }}
+                style={{ color: "white"}}
               />
             </label>
             <label style={{ color: "white" }}>
@@ -157,7 +171,7 @@ const Contact = ({ toggleTheme, value, font }) => {
                 name="message"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                style={{ color: "white" }}
+                style={{ color: "white"}}
               />
             </label>
             <input

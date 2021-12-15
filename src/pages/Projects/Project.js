@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router";
 import useFetch from "../../../src/useFetch.js";
 import anymatch from "anymatch";
+import Moment from 'moment';
 
 const Project = ({toggleTheme,value,iconS, iconF, font}) => {
 
@@ -115,14 +116,19 @@ const Project = ({toggleTheme,value,iconS, iconF, font}) => {
       }
       //MODIFY TO ITEM DATE (ORDER BY MONTH & YEAR)
       else if (option == "recent") {
-        updated.sort((a, b) => a.id < b.id? 1 : -1)
+        updated.sort((a, b) => Moment(b.acf.date).format('X') - Moment(a.acf.date).format('X'));
       }
       else if (option == "older") {
-        updated.sort((a, b) => a.id > b.id? 1 : -1)
+        updated.sort((a, b) => Moment(a.acf.date).format('X') - Moment(b.acf.date).format('X'))
       }
     }
     setProjects(updated);
   };
+
+  {projects && projects.map((project, index) => {
+    console.log(project.title.rendered + "     " + Moment(project.acf.date).format('M/YYYY'));
+  })}
+
 
   return (
     <>

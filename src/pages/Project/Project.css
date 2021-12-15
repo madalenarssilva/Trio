@@ -25,6 +25,11 @@
   font-weight: normal;
 }
 
+.description > a {
+  color: white;
+  text-decoration: none;
+}
+
 .date {
   height: 10px;
   font-size: 32px;
@@ -108,4 +113,5 @@ li {
 
 .alice-carousel__stage-item * {
   max-height: 90vh;
+  max-width: 45vw;
 }
