@@ -14,7 +14,7 @@ export const ProjectInfo = ({toggleTheme,value, font}) => {
   const location = useLocation();
   const project = location.state.projectInfo; // Read values passed on state
 
-  const author_url = 'http://trio.local/wp-json/wp/v2/project-author?include=' + project.acf.author.ID;
+  const author_url = 'http://15.237.166.90/wp-json/wp/v2/project-author?include=' + project.acf.author.ID;
   const author = useFetch(author_url);
 
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ export const ProjectInfo = ({toggleTheme,value, font}) => {
     navigate("/about/" + nome, { state: { authorInfo: author} });
   };
 
-  const tools = useFetch('http://trio.local/wp-json/wp/v2/tool');
+  const tools = useFetch('http://15.237.166.90/wp-json/wp/v2/tool');
   function searchTool(idToSearch, tools) {
     console.log(tools);
     return tools.filter(item => {

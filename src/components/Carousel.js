@@ -27,7 +27,7 @@ const items = [
 ];
 
 const Gallery = ({ items }) => {
-  const tools = useFetch("http://trio.local/wp-json/wp/v2/tool");
+  const tools = useFetch("http://15.237.166.90/wp-json/wp/v2/tool");
   const images = [];
 
   function searchTool(idToSearch, tools) {
