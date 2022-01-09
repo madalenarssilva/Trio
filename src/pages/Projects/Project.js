@@ -7,35 +7,48 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router";
 import useFetch from "../../../src/useFetch.js";
 import anymatch from "anymatch";
-import Moment from 'moment';
+import Moment from "moment";
 
-const Project = ({toggleTheme,value,iconS, iconF, font}) => {
-
-  const allProjects = useFetch('http://15.237.171.158/wp-json/wp/v2/project');
+const Project = ({ toggleTheme, value, iconS, iconF, font }) => {
+  const allProjects = useFetch(
+    "https://api.trio-mbi-api.com/wp-json/wp/v2/project"
+  );
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    setProjects(allProjects)
+    setProjects(allProjects);
   }, [allProjects]);
- 
+
   //get projects to show, according to search words
   function updateProjects(searchWords) {
-    if(searchWords === "") { return allProjects; }
-    var words = searchWords.toLowerCase().split(' ').filter(function(i){return i});
+    if (searchWords === "") {
+      return allProjects;
+    }
+    var words = searchWords
+      .toLowerCase()
+      .split(" ")
+      .filter(function (i) {
+        return i;
+      });
 
-    return allProjects.filter(item => {
+    return allProjects.filter((item) => {
       var match = false;
-      var titleWords = item.title.rendered.toLowerCase().split(' ').filter(function(i){return i});
+      var titleWords = item.title.rendered
+        .toLowerCase()
+        .split(" ")
+        .filter(function (i) {
+          return i;
+        });
 
-      for(var i = 0; i < titleWords.length; i++) {
+      for (var i = 0; i < titleWords.length; i++) {
         match = anymatch(words, titleWords[i]);
-        if(match) break;
+        if (match) break;
       }
       return match;
-    })
-  };
+    });
+  }
 
-  const borderStyle = '2px solid ' + font;
+  const borderStyle = "2px solid " + font;
   console.log(borderStyle);
 
   /*const projects = [
@@ -87,17 +100,19 @@ const Project = ({toggleTheme,value,iconS, iconF, font}) => {
   const updateFilter = useCallback((filterOption) => {}, []);
 
   const ProjectHandler = (project) => {
-    navigate("/projects/" + project.id, { state: { projectInfo: project} });
+    navigate("/projects/" + project.id, { state: { projectInfo: project } });
   };
 
   // Set initial search words
-  const [search, setSearch] = useState({name: "Search project title here"});
+  const [search, setSearch] = useState({ name: "Search project title here" });
 
   //Update search words & projects shown
   const onSearchChange = (e) => {
     var updated = projects;
-    if(allProjects != null) { updated = updateProjects(e.target.value) }
-    setSearch(search => ({...search, [e.target.name]: e.target.value}))
+    if (allProjects != null) {
+      updated = updateProjects(e.target.value);
+    }
+    setSearch((search) => ({ ...search, [e.target.name]: e.target.value }));
     setProjects(updated);
   };
 
@@ -107,28 +122,38 @@ const Project = ({toggleTheme,value,iconS, iconF, font}) => {
     console.log(option);
     var updated = projects;
 
-    if(updated != null) {   
-      if(option == "a-z") {
-        updated.sort((a, b) => a.title.rendered > b.title.rendered ? 1 : -1)
-      }
-      else if (option == "z-a") {
-        updated.sort((a, b) => a.title.rendered < b.title.rendered ? 1 : -1)
+    if (updated != null) {
+      if (option == "a-z") {
+        updated.sort((a, b) => (a.title.rendered > b.title.rendered ? 1 : -1));
+      } else if (option == "z-a") {
+        updated.sort((a, b) => (a.title.rendered < b.title.rendered ? 1 : -1));
       }
       //MODIFY TO ITEM DATE (ORDER BY MONTH & YEAR)
       else if (option == "recent") {
-        updated.sort((a, b) => Moment(b.acf.date).format('X') - Moment(a.acf.date).format('X'));
-      }
-      else if (option == "older") {
-        updated.sort((a, b) => Moment(a.acf.date).format('X') - Moment(b.acf.date).format('X'))
+        updated.sort(
+          (a, b) =>
+            Moment(b.acf.date).format("X") - Moment(a.acf.date).format("X")
+        );
+      } else if (option == "older") {
+        updated.sort(
+          (a, b) =>
+            Moment(a.acf.date).format("X") - Moment(b.acf.date).format("X")
+        );
       }
     }
     setProjects(updated);
   };
 
-  {projects && projects.map((project, index) => {
-    console.log(project.title.rendered + "     " + Moment(project.acf.date).format('M/YYYY'));
-  })}
-
+  {
+    projects &&
+      projects.map((project, index) => {
+        console.log(
+          project.title.rendered +
+            "     " +
+            Moment(project.acf.date).format("M/YYYY")
+        );
+      });
+  }
 
   return (
     <>
@@ -173,11 +198,7 @@ const Project = ({toggleTheme,value,iconS, iconF, font}) => {
             />
             <img src={iconS} onClick={handleVisibility} />
             <>
-              <img
-                className="filtro"
-                src={iconF}
-                onClick={openDropdown}
-              />
+              <img className="filtro" src={iconF} onClick={openDropdown} />
               <Popover
                 open={!!anchorEl}
                 anchorEl={anchorEl}
@@ -201,7 +222,9 @@ const Project = ({toggleTheme,value,iconS, iconF, font}) => {
                 <div className="dropdown">
                   <span
                     className="dropdown-item"
-                    onMouseEnter={(event) => {onFilterChange(event, "a-z")}}
+                    onMouseEnter={(event) => {
+                      onFilterChange(event, "a-z");
+                    }}
                     style={{
                       backgroundColor:
                         filterOption === "a-z" ? "rgba(0,0,0,0.2)" : "#7C7878",
@@ -211,7 +234,9 @@ const Project = ({toggleTheme,value,iconS, iconF, font}) => {
                   </span>
                   <span
                     className="dropdown-item"
-                    onMouseEnter={(event) => {onFilterChange(event, "z-a")}}
+                    onMouseEnter={(event) => {
+                      onFilterChange(event, "z-a");
+                    }}
                     style={{
                       backgroundColor:
                         filterOption === "z-a" ? "rgba(0,0,0,0.2)" : "#7C7878",
@@ -221,7 +246,9 @@ const Project = ({toggleTheme,value,iconS, iconF, font}) => {
                   </span>
                   <span
                     className="dropdown-item"
-                    onMouseEnter={(event) => {onFilterChange(event, "recent")}}
+                    onMouseEnter={(event) => {
+                      onFilterChange(event, "recent");
+                    }}
                     style={{
                       backgroundColor:
                         filterOption === "recent"
@@ -233,7 +260,9 @@ const Project = ({toggleTheme,value,iconS, iconF, font}) => {
                   </span>
                   <span
                     className="dropdown-item"
-                    onMouseEnter={(event) => {onFilterChange(event, "older")}}
+                    onMouseEnter={(event) => {
+                      onFilterChange(event, "older");
+                    }}
                     style={{
                       backgroundColor:
                         filterOption === "older"
@@ -263,16 +292,17 @@ const Project = ({toggleTheme,value,iconS, iconF, font}) => {
         }}
       >
         {/* <Card/> */}
-        
-        {projects && projects.map((project, index) => (
-          <div key={index} onClick={() => ProjectHandler(project)}>
-            <Card
-              backgroundImage={project.acf.preview_back.url}
-              frontImage={project.acf.preview_front.url}
-              textImage={project.title.rendered}
-            />   
-          </div>
-        ))}
+
+        {projects &&
+          projects.map((project, index) => (
+            <div key={index} onClick={() => ProjectHandler(project)}>
+              <Card
+                backgroundImage={project.acf.preview_back.url}
+                frontImage={project.acf.preview_front.url}
+                textImage={project.title.rendered}
+              />
+            </div>
+          ))}
 
         {/*
         <div onClick={() => ProjectHandler("popBubble")}>
@@ -288,9 +318,8 @@ const Project = ({toggleTheme,value,iconS, iconF, font}) => {
         <div style={{ backgroundColor: "white", borderRadius: "15px" }} />
         <div style={{ backgroundColor: "aliceblue", borderRadius: "15px" }} />
         */}
-
       </motion.div>
-      <Footer toggleTheme={toggleTheme} value={value}/>
+      <Footer toggleTheme={toggleTheme} value={value} />
     </>
   );
 };

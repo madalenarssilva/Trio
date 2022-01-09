@@ -10,10 +10,11 @@ import Footer from "../../components/Footer/Footer";
 import "./About.css";
 import useFetch from "../../../src/useFetch.js";
 
-const About = ({toggleTheme,value, font, font2}) => {
+const About = ({ toggleTheme, value, font, font2 }) => {
+  const authors = useFetch(
+    "https://api.trio-mbi-api.com/wp-json/wp/v2/project-author"
+  );
 
-  const authors = useFetch('http://15.237.171.158/wp-json/wp/v2/project-author');
-  
   const [scrollPosition, setScrollPosition] = useState(60);
   const [loadFooter, setLoadFooter] = useState(false);
   const { scrollYProgress } = useViewportScroll();
@@ -35,7 +36,7 @@ const About = ({toggleTheme,value, font, font2}) => {
 
   const PhotoHandler = (nome, author) => {
     console.log(author);
-    navigate("/about/" + nome, { state: { authorInfo: author} });
+    navigate("/about/" + nome, { state: { authorInfo: author } });
   };
 
   return (
@@ -62,7 +63,6 @@ const About = ({toggleTheme,value, font, font2}) => {
             onMouseOver={(e) => e.target.classList.add("foto_blur")}
             onMouseLeave={(e) => e.target.classList.remove("foto_blur")}
             onClick={() => PhotoHandler("ines", authors && authors[1])}
-
           />
         </div>
 
@@ -106,9 +106,13 @@ const About = ({toggleTheme,value, font, font2}) => {
                 </g>
               </mask>
               <g id="grayscale">
-                <g className="copo" mask="url(#grayscale-mask)" style={{fill:font2}}>
+                <g
+                  className="copo"
+                  mask="url(#grayscale-mask)"
+                  style={{ fill: font2 }}
+                >
                   <path
-                    stroke= {font}
+                    stroke={font}
                     strokeWidth="1"
                     d="M 213.37,41.53
                                             C 213.37,14.83 171.60,3.39 113.25,1.48
@@ -183,7 +187,7 @@ const About = ({toggleTheme,value, font, font2}) => {
           </motion.div>
         </div>
       </div>
-      {loadFooter && <Footer toggleTheme={toggleTheme} value={value}/>}
+      {loadFooter && <Footer toggleTheme={toggleTheme} value={value} />}
     </div>
   );
 };

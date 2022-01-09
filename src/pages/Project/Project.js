@@ -6,30 +6,31 @@ import "./Project.css";
 import { motion } from "framer-motion";
 import useFetch from "../../../src/useFetch.js";
 
-
-export const ProjectInfo = ({toggleTheme,value, font}) => {
+export const ProjectInfo = ({ toggleTheme, value, font }) => {
   const { id } = useParams();
   //console.log({ id });
-  
+
   const location = useLocation();
   const project = location.state.projectInfo; // Read values passed on state
 
-  const author_url = 'http://15.237.171.158/wp-json/wp/v2/project-author?include=' + project.acf.author.ID;
+  const author_url =
+    "https://api.trio-mbi-api.com/wp-json/wp/v2/project-author?include=" +
+    project.acf.author.ID;
   const author = useFetch(author_url);
 
   const navigate = useNavigate();
   const AuthorHandler = (nome, author) => {
     console.log(author);
-    navigate("/about/" + nome, { state: { authorInfo: author} });
+    navigate("/about/" + nome, { state: { authorInfo: author } });
   };
 
-  const tools = useFetch('http://15.237.171.158/wp-json/wp/v2/tool');
+  const tools = useFetch("https://api.trio-mbi-api.com/wp-json/wp/v2/tool");
   function searchTool(idToSearch, tools) {
     console.log(tools);
-    return tools.filter(item => {
-      return item.id === idToSearch
-    })
-  };
+    return tools.filter((item) => {
+      return item.id === idToSearch;
+    });
+  }
 
   console.log(project.acf.link);
 
@@ -49,7 +50,7 @@ export const ProjectInfo = ({toggleTheme,value, font}) => {
               type: "spring",
               duration: 1.5,
             }}
-            style={{color:font}}
+            style={{ color: font }}
           >
             {project.title.rendered}
           </motion.h1>
@@ -65,7 +66,7 @@ export const ProjectInfo = ({toggleTheme,value, font}) => {
               type: "spring",
               duration: 1.5,
             }}
-            style={{color:font}}
+            style={{ color: font }}
           >
             {project.acf.date}
           </motion.h2>
@@ -81,14 +82,20 @@ export const ProjectInfo = ({toggleTheme,value, font}) => {
               duration: 1.5,
             }}
           >
-          {author && author.map((authorInfo, index) => ( 
-            <img div key={index} 
-              className="author" src= {authorInfo.acf.photo.url} 
-              onMouseOver={(e) => e.target.classList.add("foto_blur")}
-              onMouseLeave={(e) => e.target.classList.remove("foto_blur")}
-              onClick={() => AuthorHandler(authorInfo.acf.user_name, authorInfo)}
-            />
-          ))}
+            {author &&
+              author.map((authorInfo, index) => (
+                <img
+                  div
+                  key={index}
+                  className="author"
+                  src={authorInfo.acf.photo.url}
+                  onMouseOver={(e) => e.target.classList.add("foto_blur")}
+                  onMouseLeave={(e) => e.target.classList.remove("foto_blur")}
+                  onClick={() =>
+                    AuthorHandler(authorInfo.acf.user_name, authorInfo)
+                  }
+                />
+              ))}
           </motion.div>
         </div>
         <motion.div
@@ -104,16 +111,19 @@ export const ProjectInfo = ({toggleTheme,value, font}) => {
             duration: 1.5,
           }}
         >
-          {project.acf.tools && project.acf.tools.map((tool, index) => {
-            if(tools != null) {
-              return(
-                <img div key={index} 
-                  className="tool" 
-                  src={searchTool(tool.ID, tools)[0].acf.icon.url} 
-                />
-              )
-            }
-          })}
+          {project.acf.tools &&
+            project.acf.tools.map((tool, index) => {
+              if (tools != null) {
+                return (
+                  <img
+                    div
+                    key={index}
+                    className="tool"
+                    src={searchTool(tool.ID, tools)[0].acf.icon.url}
+                  />
+                );
+              }
+            })}
         </motion.div>
 
         <motion.p
@@ -128,25 +138,25 @@ export const ProjectInfo = ({toggleTheme,value, font}) => {
             type: "spring",
             duration: 1.5,
           }}
-          style={{color:font}}
+          style={{ color: font }}
         >
           {project.acf.description}
 
-          {project.acf.link != undefined &&
-            <a 
+          {project.acf.link != undefined && (
+            <a
               href={project.acf.link.url}
               onMouseOver={(e) => e.target.classList.add("color-animation")}
               onMouseLeave={(e) => e.target.classList.remove("color-animation")}
             >
               <p>{project.acf.link.title}</p>
             </a>
-          }
+          )}
         </motion.p>
         <div className="carrossel">
-          <CarouselTech items={project.acf.project_images}/>
+          <CarouselTech items={project.acf.project_images} />
         </div>
       </div>
-      <Footer toggleTheme={toggleTheme} value={value}/>
+      <Footer toggleTheme={toggleTheme} value={value} />
     </div>
   );
 };
