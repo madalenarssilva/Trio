@@ -11,7 +11,7 @@ import Moment from 'moment';
 
 const Project = ({toggleTheme,value,iconS, iconF, font}) => {
 
-  const allProjects = useFetch('http://15.237.166.90/wp-json/wp/v2/project');
+  const allProjects = useFetch('http://15.237.171.158/wp-json/wp/v2/project');
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {

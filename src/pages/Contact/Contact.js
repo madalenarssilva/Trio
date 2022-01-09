@@ -10,7 +10,7 @@ const Contact = ({ toggleTheme, value, font }) => {
   const [mail, setmail] = useState();
   const [message, setMessage] = useState();
 
-  const url = "http://15.237.166.90/wp-json/wp/v2/contact/";
+  const url = "http://15.237.171.158/wp-json/wp/v2/contact/";
 
   const handleClick = () => {
     axios

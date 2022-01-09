@@ -12,7 +12,7 @@ import useFetch from "../../../src/useFetch.js";
 
 const About = ({toggleTheme,value, font, font2}) => {
 
-  const authors = useFetch('http://15.237.166.90/wp-json/wp/v2/project-author');
+  const authors = useFetch('http://15.237.171.158/wp-json/wp/v2/project-author');
   
   const [scrollPosition, setScrollPosition] = useState(60);
   const [loadFooter, setLoadFooter] = useState(false);
