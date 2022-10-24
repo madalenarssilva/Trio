@@ -6,57 +6,15 @@ import axios from "axios";
 
 const Contact = ({ toggleTheme, value, font }) => {
   const animation = useAnimation();
-  const [name, setname] = useState();
-  const [mail, setmail] = useState();
-  const [message, setMessage] = useState();
-
-  const url = "https://api.trio-mbi-api.com/wp-json/wp/v2/contact/";
+  const [name, setname] = useState("");
+  const [mail, setmail] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleClick = () => {
-    axios
-      .post(
-        url,
-        {
-          title: name,
-          status: "publish",
-          fields: {
-            email: mail,
-            name: name,
-            message: message,
-          },
-        },
-        {
-          headers: {
-            Authorization: `Basic YWRtaW46YWRtaW4=`,
-          },
-        }
-      )
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    setname("");
+    setmail("");
+    setMessage("");
   };
-
-  /*const sequence = async () => {
-    await animation.start({
-      translateY: 0,
-      display: "block",
-      rotate: 0,
-    });
-    await animation.start({
-      rotate: 180,
-      trasition: {
-        delay: 0,
-        duration: 1,
-      },
-    });
-  };
-
-  useEffect(() => {
-    sequence();
-  }, []);*/
 
   return (
     <>
@@ -109,16 +67,6 @@ const Contact = ({ toggleTheme, value, font }) => {
 
               delay: 0.5,
             }}
-            /*initial={{
-              translateY: "-50vh",
-              display: "none",
-            }}
-            animate={animation}
-            transition={{
-              type: "spring",
-
-              delay: 1.5,
-            }}*/
           >
             <p
               className="third"
@@ -141,6 +89,7 @@ const Contact = ({ toggleTheme, value, font }) => {
             damping: 15,
             duration: 1,
           }}
+          id="form"
         >
           <div className="form-div">
             <label style={{ color: "white" }}>

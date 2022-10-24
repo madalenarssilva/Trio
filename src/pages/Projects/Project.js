@@ -5,19 +5,54 @@ import Popover from "@mui/material/Popover";
 import "./Projects.css";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router";
-import useFetch from "../../../src/useFetch.js";
 import anymatch from "anymatch";
 import Moment from "moment";
 
 const Project = ({ toggleTheme, value, iconS, iconF, font }) => {
-  const allProjects = useFetch(
-    "https://api.trio-mbi-api.com/wp-json/wp/v2/project"
-  );
-  const [projects, setProjects] = useState([]);
+  const allProjects = [
+    {
+      id: "1",
+      urlname: "illustrationBook",
+      name: "Ebook",
+      date: "October 2021",
+      src: "/Madalena.png",
+      autor: "madalena",
+      tools: ["/illustrator.png", "/indesign.png"],
+      link: "https://www.behance.net/gallery/155024611/Ilustracoes-para-ebook",
+      description:
+        "Este projeto pessoal veio no seguimento de um pedido de ilustração para um e-book. O e-book em causa fala de contraceção, entre outros tópicos, de uma maneira informativa e simples. A nível de ilustrações foi pedido que fossem efetuadas ilustrações alusivas ao tema, que acompanhassem o tom inclusivo do livro e chamassem a atenção ao leitor.",
+      items: ["/background_illustration.png", "/front_illustration.png"],
+      illustrations: [
+        "utero.png",
+        "ilustracao1.png",
+        "Ilustração2.png",
+        "Menina1.png",
+        "Menina2.png",
+        "Menina3.png",
+        "Menina4.png",
+        "Menina5.png",
+        "Menina6.png",
+        "Menina7.png",
+        "Menina8.png",
+      ],
+    },
+    {
+      id: "2",
+      urlname: "popBubble",
+      name: "Pop the Bubble",
+      date: "January 2021",
+      src: "/Ines.png",
+      autor: "ines",
+      tools: ["/illustrator.png", "/indesign.png"],
+      link: "https://student.dei.uc.pt/~tabanez/PopTheBubble/",
+      description:
+        "We aim to raise consciousness about the risks of groupthinking in the workplace. Groupthinking is a phenomenon in which people approach problems without truly debating every idea, in order to reach consensus quicker. Ignoring all the possible scenarios/flaws in a project for the sake of simplicity or simply because of a closed mindset can be very harming in the long run, either because of missed opportunities or downright complete failure. Recognizing existing problems is always the first step to reach our full potential. So, we invite you to meet our eight teammates, each one representative of a symptom of groupthinking, hoping that it can help you learn from their mistakes. Let's pop our comfort bubble and make the most out of all the new possibilities that can be achieved through the diversity of ideas!",
+      items: ["/backgroundBubble.png", "/frontBubble.png"],
+      illustrations: ["Bility.png", "Didi.png", "Lief.png"],
+    },
+  ];
 
-  useEffect(() => {
-    setProjects(allProjects);
-  }, [allProjects]);
+  const [projects, setProjects] = useState(allProjects);
 
   //get projects to show, according to search words
   function updateProjects(searchWords) {
@@ -27,17 +62,17 @@ const Project = ({ toggleTheme, value, iconS, iconF, font }) => {
     var words = searchWords
       .toLowerCase()
       .split(" ")
-      .filter(function (i) {
-        return i;
+      .filter((i) => {
+        return i != null;
       });
 
     return allProjects.filter((item) => {
       var match = false;
-      var titleWords = item.title.rendered
+      var titleWords = item.name
         .toLowerCase()
         .split(" ")
-        .filter(function (i) {
-          return i;
+        .filter((i) => {
+          return i != null;
         });
 
       for (var i = 0; i < titleWords.length; i++) {
@@ -49,33 +84,6 @@ const Project = ({ toggleTheme, value, iconS, iconF, font }) => {
   }
 
   const borderStyle = "2px solid " + font;
-  console.log(borderStyle);
-
-  /*const projects = [
-    {
-      id: "1",
-      urlname: "illustrationBook",
-      name: "Illustration Book",
-      date: "October 2021",
-      src: "/Madalena.png",
-      tools: ["/illustrator.png", "/indesign.png"],
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nuncaliquam faucibus libero, et congue urna vulputate vel. Suspendisse non turpis magna. Praesent at erat a eros iaculis semper ut id lorem. Ut eu eleifend lorem. Praesent id neque ac nunc pellentesque pellentesque. Ut dictum nulla blandit mauris tincidunt pharetra. Proin quis lorem dui. Donec tincidunt sed mi ut finibus. Nam vitae pharetra nunc. Curabitur risus metus, maximus non scelerisque vitae, cursus vel purus. Vestibulum accumsan suscipit fringilla. Vestibulum laoreet metus eget pulvinar sodales. Phasellus sollicitudin magna quis lobortis rutrum. Fusce porta dignissim metus, nec feugiat justo aliquam vitae. Nullam dapibus laoreet sapien, eget molestie libero sollicitudin et. Nullam nec ante sollicitudin, pulvinar urna consectetur, mattis nibh.",
-      items: ["/ilustracao1.png", "/ilustracao2.png"],
-    },
-    {
-      id: "2",
-      urlname: "popBubble",
-      name: "Pop the Bubble",
-      date: "January 2021",
-      src: "/Ines.png",
-      tools: ["/illustrator.png", "/indesign.png"],
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nuncaliquam faucibus libero, et congue urna vulputate vel. Suspendisse non turpis magna. Praesent at erat a eros iaculis semper ut id lorem. Ut eu eleifend lorem. Praesent id neque ac nunc pellentesque pellentesque. Ut dictum nulla blandit mauris tincidunt pharetra. Proin quis lorem dui. Donec tincidunt sed mi ut finibus. Nam vitae pharetra nunc. Curabitur risus metus, maximus non scelerisque vitae, cursus vel purus. Vestibulum accumsan suscipit fringilla. Vestibulum laoreet metus eget pulvinar sodales. Phasellus sollicitudin magna quis lobortis rutrum. Fusce porta dignissim metus, nec feugiat justo aliquam vitae. Nullam dapibus laoreet sapien, eget molestie libero sollicitudin et. Nullam nec ante sollicitudin, pulvinar urna consectetur, mattis nibh.",
-      items: ["/Bility.png", "/Didi.png", "/Lief.png"],
-    },
-  ];*/
-
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const [visible, setVisible] = useState(0);
@@ -111,6 +119,7 @@ const Project = ({ toggleTheme, value, iconS, iconF, font }) => {
     var updated = projects;
     if (allProjects != null) {
       updated = updateProjects(e.target.value);
+      console.log(e.target.value);
     }
     setSearch((search) => ({ ...search, [e.target.name]: e.target.value }));
     setProjects(updated);
@@ -119,41 +128,27 @@ const Project = ({ toggleTheme, value, iconS, iconF, font }) => {
   //Update filter option & projects shown
   const onFilterChange = (e, option) => {
     setFilterOption(option);
-    console.log(option);
     var updated = projects;
 
     if (updated != null) {
       if (option == "a-z") {
-        updated.sort((a, b) => (a.title.rendered > b.title.rendered ? 1 : -1));
+        updated.sort((a, b) => (a.name > b.name ? 1 : -1));
       } else if (option == "z-a") {
-        updated.sort((a, b) => (a.title.rendered < b.title.rendered ? 1 : -1));
+        updated.sort((a, b) => (a.name > b.name ? -1 : 1));
       }
       //MODIFY TO ITEM DATE (ORDER BY MONTH & YEAR)
       else if (option == "recent") {
         updated.sort(
-          (a, b) =>
-            Moment(b.acf.date).format("X") - Moment(a.acf.date).format("X")
+          (a, b) => Moment(b.date).format("X") - Moment(a.date).format("X")
         );
       } else if (option == "older") {
         updated.sort(
-          (a, b) =>
-            Moment(a.acf.date).format("X") - Moment(b.acf.date).format("X")
+          (a, b) => Moment(a.date).format("X") - Moment(b.date).format("X")
         );
       }
     }
     setProjects(updated);
   };
-
-  {
-    projects &&
-      projects.map((project, index) => {
-        console.log(
-          project.title.rendered +
-            "     " +
-            Moment(project.acf.date).format("M/YYYY")
-        );
-      });
-  }
 
   return (
     <>
@@ -163,14 +158,6 @@ const Project = ({ toggleTheme, value, iconS, iconF, font }) => {
         <div>
           <motion.div
             className="icons"
-            /*onMouseOver={(e) => {
-              document.getElementById("cursor-ring").style.opacity = 0;
-              e.target.classList.add("icons-hover");
-            }}
-            onMouseLeave={(e) => {
-              document.getElementById("cursor-ring").style.opacity = 1;
-              e.target.classList.remove("icons-hover");
-            }}*/
             initial={{
               translateX: "50vw",
             }}
@@ -195,6 +182,9 @@ const Project = ({ toggleTheme, value, iconS, iconF, font }) => {
               name="name"
               value={search.name}
               onChange={onSearchChange}
+              onClick={() => {
+                setSearch({ name: "" });
+              }}
             />
             <img src={iconS} onClick={handleVisibility} />
             <>
@@ -297,27 +287,12 @@ const Project = ({ toggleTheme, value, iconS, iconF, font }) => {
           projects.map((project, index) => (
             <div key={index} onClick={() => ProjectHandler(project)}>
               <Card
-                backgroundImage={project.acf.preview_back.url}
-                frontImage={project.acf.preview_front.url}
-                textImage={project.title.rendered}
+                backgroundImage={project.items[0]}
+                frontImage={project.items[1]}
+                textImage={project.name}
               />
             </div>
           ))}
-
-        {/*
-        <div onClick={() => ProjectHandler("popBubble")}>
-          <Card
-            backgroundImage="/backgroundBubble.png"
-            frontImage="/frontBubble.png"
-            textImage="Pop the bubble"
-          />
-        </div>
-        <div style={{ backgroundColor: "blue", borderRadius: "15px" }} />
-        <div style={{ backgroundColor: "pink", borderRadius: "15px" }} />
-        <div style={{ backgroundColor: "green", borderRadius: "15px" }} />
-        <div style={{ backgroundColor: "white", borderRadius: "15px" }} />
-        <div style={{ backgroundColor: "aliceblue", borderRadius: "15px" }} />
-        */}
       </motion.div>
       <Footer toggleTheme={toggleTheme} value={value} />
     </>

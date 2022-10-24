@@ -1,38 +1,24 @@
 import React from "react";
 import { useParams, useLocation, useNavigate } from "react-router";
 import Footer from "../../components/Footer/Footer";
-import CarouselTech from "../../components/ProjectCarousel";
+//import CarouselTech from "../../components/ProjectCarousel";
+import CarouselTech from "../../components/Carousel";
 import "./Project.css";
 import { motion } from "framer-motion";
 import useFetch from "../../../src/useFetch.js";
 
 export const ProjectInfo = ({ toggleTheme, value, font }) => {
   const { id } = useParams();
-  //console.log({ id });
+  console.log({ id });
 
   const location = useLocation();
   const project = location.state.projectInfo; // Read values passed on state
-
-  const author_url =
-    "https://api.trio-mbi-api.com/wp-json/wp/v2/project-author?include=" +
-    project.acf.author.ID;
-  const author = useFetch(author_url);
+  console.log(project);
 
   const navigate = useNavigate();
-  const AuthorHandler = (nome, author) => {
-    console.log(author);
-    navigate("/about/" + nome, { state: { authorInfo: author } });
+  const AuthorHandler = (nome) => {
+    navigate("/about/" + nome);
   };
-
-  const tools = useFetch("https://api.trio-mbi-api.com/wp-json/wp/v2/tool");
-  function searchTool(idToSearch, tools) {
-    console.log(tools);
-    return tools.filter((item) => {
-      return item.id === idToSearch;
-    });
-  }
-
-  console.log(project.acf.link);
 
   return (
     <div className="projectPage">
@@ -52,7 +38,7 @@ export const ProjectInfo = ({ toggleTheme, value, font }) => {
             }}
             style={{ color: font }}
           >
-            {project.title.rendered}
+            {project.name}
           </motion.h1>
           <motion.h2
             className="date"
@@ -68,7 +54,7 @@ export const ProjectInfo = ({ toggleTheme, value, font }) => {
             }}
             style={{ color: font }}
           >
-            {project.acf.date}
+            {project.date}
           </motion.h2>
           <motion.div
             initial={{
@@ -82,20 +68,15 @@ export const ProjectInfo = ({ toggleTheme, value, font }) => {
               duration: 1.5,
             }}
           >
-            {author &&
-              author.map((authorInfo, index) => (
-                <img
-                  div
-                  key={index}
-                  className="author"
-                  src={authorInfo.acf.photo.url}
-                  onMouseOver={(e) => e.target.classList.add("foto_blur")}
-                  onMouseLeave={(e) => e.target.classList.remove("foto_blur")}
-                  onClick={() =>
-                    AuthorHandler(authorInfo.acf.user_name, authorInfo)
-                  }
-                />
-              ))}
+            {
+              <img
+                className="author"
+                src={project.src}
+                onMouseOver={(e) => e.target.classList.add("foto_blur")}
+                onMouseLeave={(e) => e.target.classList.remove("foto_blur")}
+                onClick={() => AuthorHandler(project.autor)}
+              />
+            }
           </motion.div>
         </div>
         <motion.div
@@ -111,18 +92,9 @@ export const ProjectInfo = ({ toggleTheme, value, font }) => {
             duration: 1.5,
           }}
         >
-          {project.acf.tools &&
-            project.acf.tools.map((tool, index) => {
-              if (tools != null) {
-                return (
-                  <img
-                    div
-                    key={index}
-                    className="tool"
-                    src={searchTool(tool.ID, tools)[0].acf.icon.url}
-                  />
-                );
-              }
+          {project.tools &&
+            project.tools.map((item) => {
+              return <img className="tool" src={item} />;
             })}
         </motion.div>
 
@@ -140,20 +112,20 @@ export const ProjectInfo = ({ toggleTheme, value, font }) => {
           }}
           style={{ color: font }}
         >
-          {project.acf.description}
+          {project.description}
 
-          {project.acf.link != undefined && (
+          {project.link && (
             <a
-              href={project.acf.link.url}
+              href={project.link}
               onMouseOver={(e) => e.target.classList.add("color-animation")}
               onMouseLeave={(e) => e.target.classList.remove("color-animation")}
             >
-              <p>{project.acf.link.title}</p>
+              <p>Website: {project.link}</p>
             </a>
           )}
         </motion.p>
         <div className="carrossel">
-          <CarouselTech items={project.acf.project_images} />
+          <CarouselTech items={project.illustrations} />
         </div>
       </div>
       <Footer toggleTheme={toggleTheme} value={value} />
